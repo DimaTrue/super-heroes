@@ -17,7 +17,7 @@ module.exports = {
       res.send({
         heroes,
         totalHeroes: heroesCount,
-        currentPage: validatedPage,
+        currentPage: validatedPage + 1,
         totalPages: Math.ceil(heroesCount / validatedLimit),
       });
     } catch (err) {

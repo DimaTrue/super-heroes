@@ -6,6 +6,7 @@ const initialState = {
   isLoading: false,
   superHeroes: [],
   onError: null,
+  totalPages: 0,
 };
 
 export default function (state = initialState, action) {
@@ -14,7 +15,12 @@ export default function (state = initialState, action) {
       return { ...state, isLoading: true };
 
     case GET_HEROES_SUCCESS:
-      return { ...state, superHeroes: action.payload, isLoading: false };
+      return {
+        ...state,
+        superHeroes: action.heroes,
+        totalPages: action.totalPages,
+        isLoading: false,
+      };
 
     case GET_HEROES_FAILURE:
       return { ...state, onError: action.payload, isLoading: false };
@@ -24,14 +30,18 @@ export default function (state = initialState, action) {
   }
 }
 
-export const getHeroesInit = () => ({
+export const getHeroesInit = (currentPage) => ({
   type: GET_HEROES_INIT,
+  payload: currentPage,
 });
 
-export const getHeroesSuccess = () => ({
+export const getHeroesSuccess = (heroes, totalPages) => ({
   type: GET_HEROES_SUCCESS,
+  heroes,
+  totalPages,
 });
 
-export const getHeroesError = () => ({
+export const getHeroesError = (payload) => ({
   type: GET_HEROES_FAILURE,
+  payload,
 });

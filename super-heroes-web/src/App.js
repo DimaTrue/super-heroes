@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
-import { HeroesList } from "./pages/HeroesList";
+import { HeroesList } from "./pages/HeroesList/HeroesList";
 import history from "./history";
 import { store } from "../src/store/store";
 
