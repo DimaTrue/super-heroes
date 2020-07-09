@@ -1,6 +1,9 @@
 export const GET_HEROES_INIT = "GET_HEROES_INIT";
 export const GET_HEROES_SUCCESS = "GET_HEROES_SUCCESS";
 export const GET_HEROES_FAILURE = "GET_HEROES_FAILURE";
+export const ADD_HERO_INIT = "ADD_HERO_INIT";
+export const ADD_HERO_SUCCESS = "ADD_HERO_SUCCESS";
+export const ADD_HERO_FAILURE = "ADD_HERO_FAILURE";
 
 const initialState = {
   isLoading: false,
@@ -27,6 +30,15 @@ export default function (state = initialState, action) {
     case GET_HEROES_FAILURE:
       return { ...state, onError: action.payload, isLoading: false };
 
+    case ADD_HERO_INIT:
+      return { ...state, isLoading: true };
+
+    case ADD_HERO_SUCCESS:
+      return { ...state, isLoading: false };
+
+    case ADD_HERO_FAILURE:
+      return { ...state, isLoading: false };
+
     default:
       return state;
   }
@@ -46,5 +58,19 @@ export const getHeroesSuccess = (heroes, totalPages, currentPage) => ({
 
 export const getHeroesError = (payload) => ({
   type: GET_HEROES_FAILURE,
+  payload,
+});
+
+export const addHeroInit = (payload) => ({
+  type: ADD_HERO_INIT,
+  payload,
+});
+
+export const addHeroSuccess = () => ({
+  type: ADD_HERO_SUCCESS,
+});
+
+export const addHeroError = (payload) => ({
+  type: ADD_HERO_FAILURE,
   payload,
 });

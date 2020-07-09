@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -44,9 +46,11 @@ export const HeroesList = () => {
             alignItems="center"
           >
             <span>SUPER HEROES</span>
-            <Button variant="outlined" color="inherit">
-              Add New Hero
-            </Button>
+            <Link to={"/create-hero"} className={classes.link}>
+              <Button variant="outlined" color="inherit">
+                Add New Hero
+              </Button>
+            </Link>
           </Grid>
         </Toolbar>
       </AppBar>
