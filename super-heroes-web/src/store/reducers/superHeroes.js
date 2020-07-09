@@ -7,6 +7,7 @@ const initialState = {
   superHeroes: [],
   onError: null,
   totalPages: 0,
+  currentPage: 1,
 };
 
 export default function (state = initialState, action) {
@@ -20,6 +21,7 @@ export default function (state = initialState, action) {
         superHeroes: action.heroes,
         totalPages: action.totalPages,
         isLoading: false,
+        currentPage: action.currentPage,
       };
 
     case GET_HEROES_FAILURE:
@@ -35,10 +37,11 @@ export const getHeroesInit = (currentPage) => ({
   payload: currentPage,
 });
 
-export const getHeroesSuccess = (heroes, totalPages) => ({
+export const getHeroesSuccess = (heroes, totalPages, currentPage) => ({
   type: GET_HEROES_SUCCESS,
   heroes,
   totalPages,
+  currentPage,
 });
 
 export const getHeroesError = (payload) => ({

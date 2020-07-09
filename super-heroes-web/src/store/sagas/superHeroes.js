@@ -15,7 +15,13 @@ export function* getHeroesSaga({ payload }) {
   try {
     const result = yield getHeroesRequest(payload);
     console.log(result);
-    yield put(getHeroesSuccess(result.data.heroes, result.data.totalPages));
+    yield put(
+      getHeroesSuccess(
+        result.data.heroes,
+        result.data.totalPages,
+        result.data.currentPage
+      )
+    );
   } catch (err) {
     yield put(getHeroesError(err));
     console.warn(err);

@@ -6,12 +6,14 @@ import { getHeroesInit } from "../../../store/reducers/superHeroes";
 export const useGetHeroes = () => {
   const isLoading = useSelector((state) => state.superHeroes.isLoading);
   const superHeroes = useSelector((state) => state.superHeroes.superHeroes);
+  const totalPages = useSelector((state) => state.superHeroes.totalPages);
+  const currentPage = useSelector((state) => state.superHeroes.currentPage);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getHeroesInit(1));
-  }, [dispatch]);
+    dispatch(getHeroesInit(currentPage));
+  }, [dispatch, currentPage]);
 
   const getHeroesFromAnotherPage = (page) => dispatch(getHeroesInit(page));
 
@@ -19,5 +21,7 @@ export const useGetHeroes = () => {
     isLoading,
     superHeroes,
     getHeroesFromAnotherPage,
+    totalPages,
+    currentPage,
   };
 };
