@@ -27,14 +27,20 @@ module.exports = {
 
   createHero: async (req, res) => {
     const imageRef = req.file && req.file.path;
-    const { nickname, realName, description, superPowers, phrase } = req.body;
+    const {
+      nickname,
+      real_name,
+      origin_description,
+      superpowers,
+      catch_phrase,
+    } = req.body;
 
     const hero = new ModelSuperHero({
-      nickname: nickname,
-      real_name: realName,
-      origin_description: description,
-      superpowers: superPowers,
-      catch_phrase: phrase,
+      nickname,
+      real_name,
+      origin_description,
+      superpowers,
+      catch_phrase,
       Images: imageRef ? [imageRef] : [],
     });
 
