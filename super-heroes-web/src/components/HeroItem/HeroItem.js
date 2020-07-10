@@ -6,11 +6,16 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Paper from "@material-ui/core/Paper";
 
-import { DESCRIPTION_LENGTH, defaultImg } from "../../constants/constants";
+import { DESCRIPTION_LENGTH, defaultImg } from "constants/constants";
 import { useStyles } from "./styles";
-import { getCurrentHeroDetails } from "../../store/reducers/superHeroes";
+import { getCurrentHeroDetails } from "store/reducers/superHeroes";
 
-export const HeroItem = ({ _id, nickname, Images, origin_description }) => {
+export const HeroItem = ({
+  _id,
+  nickname,
+  Images,
+  origin_description = "",
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const imageSource =

@@ -1,14 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-import { Colors } from "../../constants/colors";
+import { Colors } from "constants/colors";
 
 export const useStyles = makeStyles({
-  root: {
-    marginTop: "30vh",
-  },
-  content: {
-    padding: 20,
-  },
   appBarTop: {
     backgroundColor: Colors.panelColor,
   },
@@ -18,6 +12,6 @@ export const useStyles = makeStyles({
   },
   title: {
     textAlign: "center",
-    marginBottom: 20,
+    margin: 20,
   },
 });

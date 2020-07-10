@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-import { Colors } from "../../constants/colors";
+import { Colors } from "constants/colors";
 
 export const useStyles = makeStyles({
   appBarTop: {
@@ -44,5 +44,12 @@ export const useStyles = makeStyles({
     width: "100%",
     height: "100%",
     objectFit: "contain",
+  },
+  buttonsBlock: {
+    marginTop: 10,
+    padding: 10,
+  },
+  button: {
+    width: "100%",
   },
 });

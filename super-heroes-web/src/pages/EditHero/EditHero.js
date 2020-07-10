@@ -1,17 +1,27 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Box from "@material-ui/core/Box";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 
 import { useStyles } from "./styles";
+import { Form } from "components/Form/Form";
 
-export const NoHero = () => {
+export const EditHero = () => {
+  let history = useHistory();
   const classes = useStyles();
+  const currentHeroDetails = useSelector(
+    (state) => state.superHeroes.currentHeroDetails
+  );
+
+  if (!currentHeroDetails) {
+    history.push("/");
+    return <div />;
+  }
 
   return (
     <Box
@@ -34,22 +44,12 @@ export const NoHero = () => {
                 &#8592; go to List of Heroes
               </Button>
             </Link>
-            <span>Hero was not found</span>
+            <span>EDIT HERO</span>
           </Grid>
         </Toolbar>
       </AppBar>
-      <div className={classes.root}>
-        <Paper elevation={3}>
-          <div className={classes.content}>
-            <div className={classes.title}>Sorry, This Hero was not found</div>
-            <Link to={"/"} className={classes.link}>
-              <Button variant="outlined" color="primary">
-                &#8592; go to List of Heroes
-              </Button>
-            </Link>
-          </div>
-        </Paper>
-      </div>
+      <span className={classes.title}>EDIT HERO</span>
+      <Form hero={currentHeroDetails} />
     </Box>
   );
 };

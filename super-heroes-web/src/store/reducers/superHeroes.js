@@ -8,6 +8,10 @@ export const GET_CURRENT_HERO_DETAILS = "GET_CURRENT_HERO_DETAILS";
 export const DELETE_HERO_INIT = "DELETE_HERO_INIT";
 export const DELETE_HERO_SUCCESS = "DELETE_HERO_SUCCESS";
 export const DELETE_HERO_FAILURE = "DELETE_HERO_FAILURE";
+export const EDIT_HERO_INIT = "UPDATE_HERO_INIT";
+export const EDIT_HERO_SUCCESS = "UPDATE_HERO_SUCCESS";
+export const EDIT_HERO_FAILURE = "UPDATE_HERO_FAILURE";
+export const CLEAR_LOADED = "CLEAR_LOADED";
 
 const initialState = {
   isLoading: false,
@@ -16,6 +20,7 @@ const initialState = {
   totalPages: 0,
   currentPage: 1,
   currentHeroDetails: undefined,
+  loaded: false,
 };
 
 export default function (state = initialState, action) {
@@ -39,7 +44,7 @@ export default function (state = initialState, action) {
       return { ...state, isLoading: true };
 
     case ADD_HERO_SUCCESS:
-      return { ...state, isLoading: false };
+      return { ...state, isLoading: false, loaded: true };
 
     case ADD_HERO_FAILURE:
       return { ...state, isLoading: false };
@@ -60,6 +65,18 @@ export default function (state = initialState, action) {
 
     case DELETE_HERO_FAILURE:
       return { ...state, isLoading: false };
+
+    case EDIT_HERO_INIT:
+      return { ...state, isLoading: true };
+
+    case EDIT_HERO_SUCCESS:
+      return { ...state, isLoading: false, loaded: true };
+
+    case EDIT_HERO_FAILURE:
+      return { ...state, isLoading: false };
+
+    case CLEAR_LOADED:
+      return { ...state, loaded: false };
 
     default:
       return state;
@@ -114,4 +131,22 @@ export const deleteHeroSuccess = () => ({
 export const deleteHeroFailure = (err) => ({
   type: DELETE_HERO_FAILURE,
   payload: err,
+});
+
+export const editHeroInit = (payload) => ({
+  type: EDIT_HERO_INIT,
+  payload,
+});
+
+export const editHeroSuccess = () => ({
+  type: EDIT_HERO_SUCCESS,
+});
+
+export const editHeroError = (payload) => ({
+  type: EDIT_HERO_FAILURE,
+  payload,
+});
+
+export const clearLoaded = () => ({
+  type: CLEAR_LOADED,
 });

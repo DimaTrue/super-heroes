@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 
 import { useStyles } from "./styles";
-import { Form } from "../../components/Form/Form";
+import { Form } from "components/Form/Form";
 
 export const CreateHero = () => {
   const classes = useStyles();

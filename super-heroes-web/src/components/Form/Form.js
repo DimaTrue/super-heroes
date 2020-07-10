@@ -6,10 +6,13 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
 import { useStyles } from "./styles";
-import { useAddHero } from "./hooks/useAddHero";
+import { useFormHero } from "./hooks/useFormHero";
+import { useRedirect } from "./hooks/useRedirect";
 
-export const Form = () => {
+export const Form = ({ hero }) => {
+  const ButtonTitle = hero ? "Edit Hero" : "Add New Hero";
   const classes = useStyles();
+  useRedirect();
   const {
     nickname,
     setNickname,
@@ -25,7 +28,7 @@ export const Form = () => {
     errorFormat,
     setErrorFormat,
     isLoading,
-  } = useAddHero();
+  } = useFormHero(hero);
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
@@ -108,7 +111,7 @@ export const Form = () => {
               onClick={handleRequest}
               disabled={!(nickname.length > 0) || isLoading}
             >
-              {isLoading ? "Loading..." : "Add New Hero"}
+              {isLoading ? "Loading..." : ButtonTitle}
             </Button>
           )}
         </div>

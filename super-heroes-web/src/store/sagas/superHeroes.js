@@ -4,18 +4,22 @@ import {
   GET_HEROES_INIT,
   ADD_HERO_INIT,
   DELETE_HERO_INIT,
+  EDIT_HERO_INIT,
   getHeroesSuccess,
   getHeroesError,
   addHeroSuccess,
   addHeroError,
   deleteHeroSuccess,
   deleteHeroFailure,
+  editHeroSuccess,
+  editHeroError,
 } from "../reducers/superHeroes";
 import {
   getHeroesRequest,
   addHeroRequest,
   deleteHeroRequest,
-} from "../../api-client/superHeroes";
+  editHeroRequest,
+} from "api-client/superHeroes";
 
 export function* watchGetHeroes() {
   yield takeLatest(GET_HEROES_INIT, getHeroesSaga);
@@ -44,9 +48,8 @@ export function* watchAddHero() {
 
 export function* addHeroSaga({ payload }) {
   try {
-    const result = yield call(addHeroRequest, payload);
+    yield call(addHeroRequest, payload);
     yield put(addHeroSuccess());
-    yield console.log("RESULT", result);
   } catch (err) {
     yield put(addHeroError(err));
     yield console.warn(err);
@@ -63,10 +66,29 @@ export function* deleteHeroSaga({ payload }) {
     yield put(deleteHeroSuccess());
   } catch (err) {
     yield put(deleteHeroFailure(err));
-    console.log(err);
+    console.warn(err);
+  }
+}
+
+export function* watchEditHero() {
+  yield takeLatest(EDIT_HERO_INIT, editHeroSaga);
+}
+
+export function* editHeroSaga({ payload }) {
+  try {
+    yield call(editHeroRequest, payload);
+    yield put(editHeroSuccess());
+  } catch (err) {
+    yield put(editHeroError(err));
+    yield console.warn(err);
   }
 }
 
 export default function* superHeroes() {
-  yield all([watchGetHeroes(), watchAddHero(), watchDeleteHero()]);
+  yield all([
+    watchGetHeroes(),
+    watchAddHero(),
+    watchDeleteHero(),
+    watchEditHero(),
+  ]);
 }

@@ -6,8 +6,9 @@ import "./App.css";
 import { HeroesList } from "./pages/HeroesList/HeroesList";
 import { CreateHero } from "./pages/CreateHero/CreateHero";
 import { HeroDetails } from "./pages/HeroDetails/HeroDetails";
+import { EditHero } from "./pages/EditHero/EditHero";
 import history from "./history";
-import { store } from "../src/store/store";
+import { store } from "./store/store";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" exact component={HeroesList} />
           <Route path="/create-hero" component={CreateHero} />
           <Route path="/hero/:id" component={HeroDetails} />
+          <Route path="/edit-hero" component={EditHero} />
         </Switch>
       </Router>
     </Provider>

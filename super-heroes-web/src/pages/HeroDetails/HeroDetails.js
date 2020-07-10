@@ -11,8 +11,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import { useStyles } from "./styles";
-import { deleteHeroInit } from "../../store/reducers/superHeroes";
-import { defaultImg } from "../../constants/constants";
+import { deleteHeroInit } from "store/reducers/superHeroes";
+import { defaultImg } from "constants/constants";
 
 export const HeroDetails = () => {
   let history = useHistory();
@@ -22,107 +22,125 @@ export const HeroDetails = () => {
     (state) => state.superHeroes.currentHeroDetails
   );
 
-  if (currentHeroDetails) {
-    const {
-      _id,
-      nickname,
-      real_name,
-      origin_description,
-      superpowers,
-      catch_phrase,
-      Images,
-    } = currentHeroDetails;
+  if (!currentHeroDetails) {
+    history.push("/");
+    return <div />;
+  }
 
-    const imageSource =
-      Images && Images[0] && Images[0].length ? Images[0] : defaultImg;
+  const {
+    _id,
+    nickname,
+    real_name,
+    origin_description,
+    superpowers,
+    catch_phrase,
+    Images,
+  } = currentHeroDetails;
 
-    return (
-      <>
-        <AppBar position="static" className={classes.appBarTop}>
-          <Toolbar>
-            <Grid
-              container
-              direction="row"
-              justify="space-around"
-              alignItems="center"
-            >
-              <Link to={"/"} className={classes.link}>
-                <Button variant="outlined" color="inherit">
-                  &#8592; go to List of Heroes
-                </Button>
-              </Link>
-              <span>{nickname}</span>
+  const imageSource =
+    Images && Images[0] && Images[0].length ? Images[0] : defaultImg;
+
+  return (
+    <>
+      <AppBar position="static" className={classes.appBarTop}>
+        <Toolbar>
+          <Grid
+            container
+            direction="row"
+            justify="space-around"
+            alignItems="center"
+          >
+            <Link to={"/"} className={classes.link}>
+              <Button variant="outlined" color="inherit">
+                &#8592; go to List of Heroes
+              </Button>
+            </Link>
+            <span>{nickname}</span>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+      <Grid container direction="row" justify="center" alignItems="center">
+        <Grid item xs={8}>
+          <Paper elevation={3} className={classes.mainInfoBlock}>
+            <ListItem>
+              <div className={classes.imageBlock}>
+                <img
+                  alt={nickname}
+                  src={imageSource}
+                  className={classes.image}
+                  width="120vw"
+                  height="120vw"
+                />
+              </div>
+              <div className={classes.textAreaa}>
+                <span className={classes.paperTitle}>{nickname}</span>
+                <ListItemText primary={real_name} />
+              </div>
+            </ListItem>
+          </Paper>
+          <Paper elevation={3} className={classes.descriptionBlock}>
+            <div>
+              <span className={classes.paperTitle}>Description: </span>
+            </div>
+            <div className={classes.paperContent}>
+              <span>{origin_description}</span>
+            </div>
+          </Paper>
+          <Paper elevation={3} className={classes.descriptionBlock}>
+            <div>
+              <span className={classes.paperTitle}>Super Powers: </span>
+            </div>
+            <div className={classes.paperContent}>
+              <span>{superpowers}</span>
+            </div>
+          </Paper>
+          <Paper elevation={3} className={classes.descriptionBlock}>
+            <div>
+              <span className={classes.paperTitle}>Catch Phrase: </span>
+            </div>
+            <div className={classes.paperContent}>
+              <span>{catch_phrase}</span>
+            </div>
+          </Paper>
+          <Paper elevation={3} className={classes.buttonsBlock}>
+            <Link to={"/edit-hero"} className={classes.link}>
               <Button
                 variant="outlined"
-                color="inherit"
-                onClick={() => dispatch(deleteHeroInit(_id))}
+                color="primary"
+                className={classes.button}
               >
-                Delete Hero
+                Edit Hero
               </Button>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={8}>
-            <Paper elevation={3} className={classes.mainInfoBlock}>
-              <ListItem>
-                <div className={classes.imageBlock}>
+            </Link>
+          </Paper>
+          <Paper elevation={3} className={classes.buttonsBlock}>
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={() => dispatch(deleteHeroInit(_id))}
+              className={classes.button}
+            >
+              Delete Hero
+            </Button>
+          </Paper>
+          {Images &&
+            Images.map((img, i) => {
+              return (
+                <Paper
+                  elevation={3}
+                  className={classes.imageGalleryBlock}
+                  key={`${nickname}${i}`}
+                >
                   <img
-                    alt={nickname}
-                    src={imageSource}
-                    className={classes.image}
-                    width="120vw"
-                    height="120vw"
+                    src={img}
+                    alt={`${nickname}-${i}`}
+                    className={classes.imageGallery}
                   />
-                </div>
-                <div className={classes.textAreaa}>
-                  <span className={classes.paperTitle}>{nickname}</span>
-                  <ListItemText primary={real_name} />
-                </div>
-              </ListItem>
-            </Paper>
-            <Paper elevation={3} className={classes.descriptionBlock}>
-              <div>
-                <span className={classes.paperTitle}>Description: </span>
-              </div>
-              <div className={classes.paperContent}>
-                <span>{origin_description}</span>
-              </div>
-            </Paper>
-            <Paper elevation={3} className={classes.descriptionBlock}>
-              <div>
-                <span className={classes.paperTitle}>Super Powers: </span>
-              </div>
-              <div className={classes.paperContent}>
-                <span>{superpowers}</span>
-              </div>
-            </Paper>
-            <Paper elevation={3} className={classes.descriptionBlock}>
-              <div>
-                <span className={classes.paperTitle}>Catch Phrase: </span>
-              </div>
-              <div className={classes.paperContent}>
-                <span>{catch_phrase}</span>
-              </div>
-            </Paper>
-            {Images &&
-              Images.length &&
-              Images.map((img, i) => {
-                return (
-                  <Paper elevation={3} className={classes.imageGalleryBlock}>
-                    <img
-                      src={img}
-                      alt={`${nickname}-${i}`}
-                      className={classes.imageGallery}
-                    />
-                  </Paper>
-                );
-              })}
-          </Grid>
+                </Paper>
+              );
+            })}
         </Grid>
-      </>
-    );
-  }
-  history.push("/");
-  return <div />;
+      </Grid>
+    </>
+  );
 };

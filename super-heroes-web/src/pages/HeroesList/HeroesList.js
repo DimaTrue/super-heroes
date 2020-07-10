@@ -11,8 +11,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 
 import { useGetHeroes } from "./hooks/useGetHeroes";
-import { HeroItem } from "../../components/HeroItem/HeroItem";
-import { Loading } from "../../components/Loading/Loading";
+import { HeroItem } from "components/HeroItem/HeroItem";
+import { Loading } from "components/Loading/Loading";
 import { useStyles } from "./styles";
 
 export const HeroesList = () => {

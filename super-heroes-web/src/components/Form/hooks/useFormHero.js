@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addHeroInit } from "../../../store/reducers/superHeroes";
+import { addHeroInit, editHeroInit } from "store/reducers/superHeroes";
 
-export const useAddHero = () => {
-  const [nickname, setNickname] = useState("");
-  const [realName, setRealName] = useState("");
-  const [description, setDescription] = useState("");
-  const [superPowers, setSuperPowers] = useState("");
-  const [phrase, setPhrase] = useState("");
+export const useFormHero = (hero) => {
+  const [nickname, setNickname] = useState(hero ? hero.nickname : "");
+  const [realName, setRealName] = useState(hero ? hero.real_name : "");
+  const [description, setDescription] = useState(
+    hero ? hero.origin_description : ""
+  );
+  const [superPowers, setSuperPowers] = useState(hero ? hero.superpowers : "");
+  const [phrase, setPhrase] = useState(hero ? hero.catch_phrase : "");
   const [errorFormat, setErrorFormat] = useState(false);
   const isLoading = useSelector((state) => state.superHeroes.isLoading);
   const dispatch = useDispatch();
@@ -22,13 +24,16 @@ export const useAddHero = () => {
         file[0].name.slice(dotIndex) === ".png"
       ) {
         const formData = new FormData();
+        hero && formData.append("heroId", hero._id);
         formData.append("image", file[0]);
         formData.append("nickname", nickname);
-        formData.append("realName", realName);
-        formData.append("description", description);
-        formData.append("superPowers", superPowers);
-        formData.append("phrase", phrase);
-        dispatch(addHeroInit(formData));
+        formData.append("real_name", realName);
+        formData.append("origin_description", description);
+        formData.append("superpowers", superPowers);
+        formData.append("catch_phrase", phrase);
+        hero
+          ? dispatch(editHeroInit(formData))
+          : dispatch(addHeroInit(formData));
         console.log("ENABLED");
       } else {
         console.log("ERROR FORMAT");
@@ -36,13 +41,14 @@ export const useAddHero = () => {
       }
     } else {
       const formData = new FormData();
+      hero && formData.append("heroId", hero._id);
       formData.append("image", file[0]);
       formData.append("nickname", nickname);
-      formData.append("realName", realName);
-      formData.append("description", description);
-      formData.append("superPowers", superPowers);
-      formData.append("phrase", phrase);
-      dispatch(addHeroInit(formData));
+      formData.append("real_name", realName);
+      formData.append("origin_description", description);
+      formData.append("superpowers", superPowers);
+      formData.append("catch_phrase", phrase);
+      hero ? dispatch(editHeroInit(formData)) : dispatch(addHeroInit(formData));
       console.log("enabled");
     }
   };
