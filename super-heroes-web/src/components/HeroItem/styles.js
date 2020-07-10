@@ -21,4 +21,7 @@ export const useStyles = makeStyles({
     fontSize: 25,
     fontWeight: "bold",
   },
+  link: {
+    textDecoration: "none",
+  },
 });

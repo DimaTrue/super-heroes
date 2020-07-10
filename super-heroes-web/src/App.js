@@ -5,6 +5,7 @@ import { Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import { HeroesList } from "./pages/HeroesList/HeroesList";
 import { CreateHero } from "./pages/CreateHero/CreateHero";
+import { HeroDetails } from "./pages/HeroDetails/HeroDetails";
 import history from "./history";
 import { store } from "../src/store/store";
 
@@ -15,6 +16,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={HeroesList} />
           <Route path="/create-hero" component={CreateHero} />
+          <Route path="/hero/:id" component={HeroDetails} />
         </Switch>
       </Router>
     </Provider>

@@ -20,3 +20,7 @@ export const addHeroRequest = (formData) => {
     headers: { "Content-Type": "multipart/form-data" },
   });
 };
+
+export const deleteHeroRequest = (id) => {
+  return axios.delete(`${BASE_URL}${SUPER_HEROES_URL}?id=${id}`);
+};

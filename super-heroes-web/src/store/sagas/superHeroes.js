@@ -3,12 +3,19 @@ import { takeLatest, put, all, call } from "redux-saga/effects";
 import {
   GET_HEROES_INIT,
   ADD_HERO_INIT,
+  DELETE_HERO_INIT,
   getHeroesSuccess,
   getHeroesError,
   addHeroSuccess,
   addHeroError,
+  deleteHeroSuccess,
+  deleteHeroFailure,
 } from "../reducers/superHeroes";
-import { getHeroesRequest, addHeroRequest } from "../../api-client/superHeroes";
+import {
+  getHeroesRequest,
+  addHeroRequest,
+  deleteHeroRequest,
+} from "../../api-client/superHeroes";
 
 export function* watchGetHeroes() {
   yield takeLatest(GET_HEROES_INIT, getHeroesSaga);
@@ -46,6 +53,20 @@ export function* addHeroSaga({ payload }) {
   }
 }
 
+export function* watchDeleteHero() {
+  yield takeLatest(DELETE_HERO_INIT, deleteHeroSaga);
+}
+
+export function* deleteHeroSaga({ payload }) {
+  try {
+    yield call(deleteHeroRequest, payload);
+    yield put(deleteHeroSuccess());
+  } catch (err) {
+    yield put(deleteHeroFailure(err));
+    console.log(err);
+  }
+}
+
 export default function* superHeroes() {
-  yield all([watchGetHeroes(), watchAddHero()]);
+  yield all([watchGetHeroes(), watchAddHero(), watchDeleteHero()]);
 }
